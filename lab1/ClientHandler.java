@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package lab1;
 
 import java.io.BufferedReader;
@@ -14,11 +10,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author henni
+ * @author Henning
+ * @author Amanda
  */
 public class ClientHandler implements Runnable {
 
-    public ArrayList<ClientHandler> clientList = new ArrayList<>();
+    public static ArrayList<ClientHandler> clientList = new ArrayList<>();
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
@@ -50,9 +47,7 @@ public class ClientHandler implements Runnable {
                 System.err.println(e);
             }
         }
-
     }
-
 
     public void sendMessageToAll(String msg){
         for(ClientHandler currentClient : clientList){
@@ -62,8 +57,6 @@ public class ClientHandler implements Runnable {
                     currentClient.bufferedWriter.newLine();
                     currentClient.bufferedWriter.flush();
                 }
-
-
             }catch(IOException e){
                 System.err.println(e);
             }
