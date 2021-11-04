@@ -33,6 +33,7 @@ public class ChatServer {
         //TODO Om client kopplar bort ta bort de från Clientlist
         ServerSocket serverSocket = new ServerSocket(8080);
         ChatServer server = new ChatServer(serverSocket);
+        System.out.println("Starting server...");
         server.startServer();
     }
 }

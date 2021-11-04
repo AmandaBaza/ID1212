@@ -60,10 +60,14 @@ public class ChatClient implements Runnable{
     public static void main(String[] args){
         //TODO Om server kopplar bort/crashar, medelande till klient
         try{
-            Socket socket = new Socket("local host", 8080);
             System.out.println("Användarnamn:");
             Scanner scanner = new Scanner(System.in);
+            System.out.println("test 1");
+            Socket socket = new Socket("local host", 8080);
+            System.out.println("test 2");
             ChatClient client = new ChatClient(socket, scanner.nextLine());
+            System.out.println("test 3");
+
 
             //TODO thread to listen
             //TODO thread to write
