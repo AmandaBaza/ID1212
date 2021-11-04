@@ -19,10 +19,9 @@ public class ChatClient implements Runnable{
     private BufferedWriter write;
     private String username;
 
-    public ChatClient(Socket socket, String username){
+    public ChatClient(Socket socket){
         try{
             this.socket = socket;
-            this.username = username;
             this.read = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.write = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         }catch (IOException e){
@@ -39,15 +38,21 @@ public class ChatClient implements Runnable{
                 write.newLine();
                 write.flush();
             }
-        }catch(IOException e){
-            System.err.println(e);
+        }catch(Exception e){
+            System.out.println("Lost connection to server");
+            try{
+                socket.close();
+            }catch(Exception ex){System.out.println(ex);}
+            System.exit(1);
         }
     }
 
     @Override
     public void run(){
         String msg;
-        while(!socket.isConnected()){
+        System.out.println("run");
+        while(socket.isConnected()){
+            System.out.println("while");
             try{
                 msg = read.readLine();
                 System.out.println(msg);
@@ -62,16 +67,11 @@ public class ChatClient implements Runnable{
         try{
             System.out.println("Användarnamn:");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("test 1");
-            Socket socket = new Socket("local host", 8080);
-            System.out.println("test 2");
-            ChatClient client = new ChatClient(socket, scanner.nextLine());
-            System.out.println("test 3");
+            Socket socket = new Socket("localhost", 12341);
+            ChatClient client = new ChatClient(socket);
 
-
-            //TODO thread to listen
-            //TODO thread to write
             client.messageSender();
+            client.run();
         }catch (IOException e){
             System.err.println(e);
         }

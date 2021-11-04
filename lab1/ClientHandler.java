@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable {
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.userName = bufferedReader.readLine();
+            System.out.println(this.userName);
             clientList.add(this);
 
 
@@ -34,16 +35,32 @@ public class ClientHandler implements Runnable {
             System.err.println(e);
         }
     }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
     @Override
     public void run(){
         String msg;
-
-        while(!socket.isConnected()){
+        System.out.println("1");
+        while(socket.isConnected()){
+            System.out.println("2");
             try{
                 msg = bufferedReader.readLine();
                 sendMessageToAll(msg);
-
+                System.out.println(msg);
             }catch(IOException e){
+                System.out.println("A user has left");
+                clientList.remove(this);
+                try{
+                    socket.close();
+                    bufferedReader.close();
+                    bufferedWriter.close();
+                    break;
+                }catch(Exception er){
+                    System.err.println(er);
+                }
                 System.err.println(e);
             }
         }
@@ -52,7 +69,9 @@ public class ClientHandler implements Runnable {
     public void sendMessageToAll(String msg){
         for(ClientHandler currentClient : clientList){
             try{
+                System.out.println("for");
                 if(currentClient.socket!=this.socket){
+                    System.out.println("if");
                     currentClient.bufferedWriter.write(msg);
                     currentClient.bufferedWriter.newLine();
                     currentClient.bufferedWriter.flush();

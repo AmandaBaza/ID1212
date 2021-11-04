@@ -19,9 +19,9 @@ public class ChatServer {
         try{
             while(true){
                 Socket socket = serverSocket.accept();
-                System.out.println("Ny användare har anslutit.");
                 lab1.ClientHandler client = new lab1.ClientHandler(socket);
                 Thread thread = new Thread(client);
+                System.out.println("Användare " + client.getUserName() +" har anslutit.");
                 thread.start();
             }
         }catch(IOException e){
@@ -30,8 +30,7 @@ public class ChatServer {
     }
 
     public static void main(String args[]) throws IOException{
-        //TODO Om client kopplar bort ta bort de från Clientlist
-        ServerSocket serverSocket = new ServerSocket(8080);
+        ServerSocket serverSocket = new ServerSocket(12341);
         ChatServer server = new ChatServer(serverSocket);
         System.out.println("Starting server...");
         server.startServer();
