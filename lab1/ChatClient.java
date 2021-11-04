@@ -70,8 +70,9 @@ public class ChatClient implements Runnable{
             Socket socket = new Socket("localhost", 12341);
             ChatClient client = new ChatClient(socket);
 
+            Thread thread = new Thread(client);
             client.messageSender();
-            client.run();
+            thread.start();
         }catch (IOException e){
             System.err.println(e);
         }
