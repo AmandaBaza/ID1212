@@ -24,6 +24,7 @@ public class ChatClient implements Runnable{
             this.socket = socket;
             this.read = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.write = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.write = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         }catch (IOException e){
             System.err.println(e);
         }
@@ -50,20 +51,26 @@ public class ChatClient implements Runnable{
     @Override
     public void run(){
         String msg;
-        System.out.println("run");
         while(socket.isConnected()){
-            System.out.println("while");
             try{
                 msg = read.readLine();
                 System.out.println(msg);
             }catch(IOException e){
+                System.out.println("Lost connection to server");
+                try{
+                    socket.close();
+                    read.close();
+                    write.close();
+                    System.exit(1);
+                }catch(Exception er){
+                    System.err.println(er);
+                }
                 System.err.println(e);
             }
         }
     }
 
     public static void main(String[] args){
-        //TODO Om server kopplar bort/crashar, medelande till klient
         try{
             System.out.println("Användarnamn:");
             Scanner scanner = new Scanner(System.in);
@@ -71,8 +78,8 @@ public class ChatClient implements Runnable{
             ChatClient client = new ChatClient(socket);
 
             Thread thread = new Thread(client);
-            client.messageSender();
             thread.start();
+            client.messageSender();
         }catch (IOException e){
             System.err.println(e);
         }

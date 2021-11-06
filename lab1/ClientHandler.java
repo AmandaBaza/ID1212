@@ -27,10 +27,7 @@ public class ClientHandler implements Runnable {
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.userName = bufferedReader.readLine();
-            System.out.println(this.userName);
             clientList.add(this);
-
-
         }catch(IOException e){
             System.err.println(e);
         }
@@ -43,9 +40,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run(){
         String msg;
-        System.out.println("1");
         while(socket.isConnected()){
-            System.out.println("2");
             try{
                 msg = bufferedReader.readLine();
                 sendMessageToAll(msg);
