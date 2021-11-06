@@ -64,9 +64,7 @@ public class ClientHandler implements Runnable {
     public void sendMessageToAll(String msg){
         for(ClientHandler currentClient : clientList){
             try{
-                System.out.println("for");
                 if(currentClient.socket!=this.socket){
-                    System.out.println("if");
                     currentClient.bufferedWriter.write(msg);
                     currentClient.bufferedWriter.newLine();
                     currentClient.bufferedWriter.flush();
