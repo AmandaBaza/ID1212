@@ -9,16 +9,23 @@ public class GuessingGame {
         counter = 0;
     }
 
-    public boolean makeGuess(int guess){
+    public int makeGuess(int guess){
         counter++;
-        return isNumber(guess);
+        return compareGuess(guess);
+    }
+    private int compareGuess(int guess) {
+        if(guess < this.number){
+            return 1;
+        }
+        if (guess > this.number){
+            return -1;
+        }
+
+        return 0;
+
     }
     public int getCounter(){
         return counter;
-    }
-
-    private boolean isNumber(int guess){
-        return (guess==number);
     }
 
     private int generateRandomNumber(){

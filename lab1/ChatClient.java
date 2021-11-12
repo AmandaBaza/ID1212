@@ -24,7 +24,6 @@ public class ChatClient implements Runnable{
             this.socket = socket;
             this.read = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.write = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.write = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         }catch (IOException e){
             System.err.println(e);
         }
