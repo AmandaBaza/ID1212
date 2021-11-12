@@ -13,6 +13,9 @@ public class Server{
             clientOutput.write("HTTP/1.1 200\r\n".getBytes());
             clientOutput.write("\r\n".getBytes());
             clientOutput.write("<b>Guessing Game<b>".getBytes());
+            clientOutput.write(("<form>" +
+                    "<label for=\"guess\">Guess a number:</label><br><input type=\"number\" id=\"guess\" name=\"guess\"><br>" +
+                    "<form>").getBytes());
             clientOutput.flush();
         }
     }
