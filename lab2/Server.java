@@ -30,7 +30,11 @@ public class Server{
             String requestedDocument = tokens.nextToken();
             //this?
             while( (read = buffread.readLine()) != null && read.length() > 0){
-                System.out.println(read);
+                if(read.contains("/?guess=")){
+                    String[] arrOfStr = read.split("/?guess=", 2);
+                    String userGuess = arrOfStr[1];
+                    System.out.println(userGuess);
+                }
             }
             PrintStream response = new PrintStream(client.getOutputStream());
             response.println("HTTP/1.1 200 OK");
@@ -43,14 +47,11 @@ public class Server{
             response.println();
 
         }
-        public void handleRequest(request){
-            if(request == null){return;}
-            if(request.httpMethod.equals(HTTP_GET_METHOD)){
-                //stuff
-            }
-
-        }
-
     }
-
+    /*void handleRequest(request){
+        if(request == null){return;}
+        if(request.httpMethod.equals(HTTP_GET_METHOD)){
+            System.out.println("Test");
+        }
+    }*/
 }
