@@ -1,37 +1,44 @@
-package lab2;
 import java.util.Random;
 
 public class GuessingGame {
-    private int number;
-    private int counter;
+    private int secretNumber;
+    private int totalNumberOfGuesses;
+    private boolean guessedCorrect;
+    String responseHtml;
 
     public void GuessingGame(){
-        number = generateRandomNumber();
-        counter = 0;
+        secretNumber = generateRandomNumber();
+        totalNumberOfGuesses = 0;
+        guessedCorrect = false;
     }
 
-    public int makeGuess(int guess){
-        counter++;
+    public String makeGuess(int guess){
+        totalNumberOfGuesses++;
         return compareGuess(guess);
     }
-    private int compareGuess(int guess) {
-        if(guess < this.number){
-            return 1;
+    private String compareGuess(int guess) {
+        if(guess < this.secretNumber){
+            return "You guessed "+guess+" the secret number is higher";
         }
-        if (guess > this.number){
-            return -1;
+        if (guess > this.secretNumber){
+            return "You guessed "+guess+" the secret number is lower";
         }
+        guessedCorrect = true;
+        return "Congratulation you guessed "+guess+" witch is the secret number";
 
-        return 0;
 
     }
-    public int getCounter(){
-        return counter;
+    public int getGuesses(){
+        return totalNumberOfGuesses;
+    }
+
+    public boolean getGuessedCorrect(){
+        return guessedCorrect;
     }
 
     private int generateRandomNumber(){
         Random rand = new Random();
-        int randomNumber = rand.nextInt(100);
+        int randomNumber = (rand.nextInt(100))+1;
         return randomNumber;
     }
 
