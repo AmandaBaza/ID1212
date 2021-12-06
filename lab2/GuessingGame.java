@@ -4,7 +4,6 @@ public class GuessingGame {
     private int secretNumber;
     private int totalNumberOfGuesses;
     private boolean guessedCorrect;
-    String responseHtml;
 
     public void GuessingGame(){
         secretNumber = generateRandomNumber();
@@ -12,19 +11,19 @@ public class GuessingGame {
         guessedCorrect = false;
     }
 
-    public String makeGuess(int guess){
+    public int makeGuess(int guess){
         totalNumberOfGuesses++;
         return compareGuess(guess);
     }
-    private String compareGuess(int guess) {
+    private int compareGuess(int guess) {
         if(guess < this.secretNumber){
-            return "You guessed "+guess+" the secret number is higher";
+            return 1;
         }
         if (guess > this.secretNumber){
-            return "You guessed "+guess+" the secret number is lower";
+            return 2;
         }
         guessedCorrect = true;
-        return "Congratulation you guessed "+guess+" witch is the secret number";
+        return 0;
 
 
     }

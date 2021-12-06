@@ -2,11 +2,9 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-
 public class Server2 {
 
-    ArrayList<GuessingGame> gameSesseions;
+    ArrayList<GuessingGame> gameSesseions;  //Create an array of guessing Game Class
     private int cookieID;
     ServerSocket serverSocket;
     BufferedReader request;
@@ -66,14 +64,16 @@ public class Server2 {
             }
 
             
-
+            int responseChoise;
             System.out.println("Cookie ID" + cookieID);
             System.out.println("content length: " +contentLength);
             System.out.println("Debug guess: "+guess);
-            String htmlGame;
+            
+            
+            String htmlRespone;
 
 
-            htmlGame = "<!DOCTYPE html>\n" +
+            htmlRespone = "<!DOCTYPE html>\n" +
             "<html>\n" +
             "<head>\n" +
             "<title>My Guessing Game</title>\n" +
@@ -91,9 +91,9 @@ public class Server2 {
 
             response.println("HTTP/1.1 200 OK");
             response.println("Content-Type: text/html");
-            response.println("Content-Length: " + htmlGame.length());
+            response.println("Content-Length: " + htmlRespone.length());
             response.println("\r\n");
-            response.println(htmlGame);
+            response.println(htmlRespone);
             response.flush();
 
             request.close();
